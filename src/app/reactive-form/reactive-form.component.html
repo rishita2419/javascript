@@ -1,0 +1,71 @@
+
+
+<form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)" >
+
+    <div>
+        <label> username </label>
+        <input type="text"  formControlName="username" >
+        <div *ngIf="loginForm.controls['username'].invalid && loginForm.controls['username'].touched">
+            <small class="small">please enter name</small>
+        </div>
+        
+        <div>
+            <label> password </label>
+            <input type="password"  formControlName="password" >
+            <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+                <small class="small">please enter password</small>
+            </div>
+            <div *ngIf="loginForm.errors?.['passwordMisMatch']">
+                <small>password didnt match</small>
+            </div>
+        </div>
+
+        <div>
+            <label> confirm  </label>
+            <input type="password" formControlName="confirm" >
+            <div *ngIf="loginForm.controls['confirm'].invalid && loginForm.controls['confirm'].touched">
+                <small class="small">please re-enter password</small>
+            </div>
+            <div *ngIf="loginForm.errors?.['passwordMisMatch']">
+                <small>password didnt match</small>
+            </div>
+        </div>
+
+
+            <div formGroupName="address">
+                <label for="">address</label>
+                <br>
+                <label> city </label>
+                <input type="text"  formControlName="city" >
+                <div *ngIf="city.invalid && city.touched">
+                    <small class="small">please enter city</small>
+                </div>
+                <br>
+                <label> pin </label>
+                <input type="text"  formControlName="pin" >
+            </div>
+
+
+         
+            <div formArrayName="mobile">
+                <button (click)="getMobile()"> add more field </button>
+
+                <div  *ngFor="let contact of mobile.controls; index as i" [formGroupName]="i" >
+                    
+                        <label > mobile</label>
+                        <input type="text"  formControlName="numbers">
+                        <div *ngIf="contact.get('numbers')?.invalid && contact.get('numbers')?.touched">
+                            <small class="small">please enter number</small>
+                        </div>
+
+                        <label > nickName</label>
+                        <input type="text" formControlName="nickName">
+                    
+                </div>
+            </div>
+
+    </div>
+
+    <button type="submit" [disabled]="loginForm.invalid" >submit</button>
+</form>
+

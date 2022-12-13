@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-function',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FunctionComponent implements OnInit{
 
-  ngOnInit(): void {
-    
+  constructor(){
+    this.data
   }
 
+  ngOnInit(): void {
+    this.customObservable.subscribe(console.log)
+  }
+
+  customObservable = new Observable( x => {
+      x.next(20),
+      x.next(25) 
+    }
+  )
+
+  public data = new BehaviorSubject('data');
 
 }
